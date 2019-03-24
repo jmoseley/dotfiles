@@ -1,0 +1,23 @@
+[user]
+        name = Jeremy Moseley
+        email = jeremy@jeremymoseley.net
+[alias]
+        co = checkout
+        cm = !git commit -m
+        st = status
+        ca = commit --amend --no-edit
+        pf = push -f
+        p = push
+        cob = checkout -b
+        ec = config --global -e
+        up = !git pull origin ${1-master} && git submodule update --init --recursive && git bclean ${1-master} && git remote prune origin
+        save = !git add -A && git commit -m 'SAVEPOINT'
+        wip = !git add -u && git commit -m 'WIP'
+        undo = reset HEAD~1 --mixed
+        wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+        bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
+[push]
+	default = current
+
+[rerere]
+	enabled = true
