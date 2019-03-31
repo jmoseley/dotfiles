@@ -5,18 +5,13 @@ export PATH=/usr/local/share/flutter/bin:$PATH
 
 eval $(thefuck --alias)
 
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH=/Users/jeremy/src/ops/.tools:$PATH
-export VAULT_CAPATH=/Users/jeremy/src/ops/credentials/convoy-vault-ca.cert.pem
-export VAULT_ADDR=https://10.10.27.22:8200
-
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
-
 alias ne='PATH=$(npm bin):$PATH'
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/jeremy/.oh-my-zsh
+export ZSH=/home/jeremy/.oh-my-zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -25,12 +20,11 @@ ZSH_THEME="cloud"
 
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git osx node nvm npm history-substring-search z brew)
+plugins=(git osx node nvm npm history-substring-search z)
 
 HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
 source $ZSH/oh-my-zsh.sh
-
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -68,7 +62,7 @@ load-nvmrc() {
  fi
 }
 add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+# load-nvmrc
 
 export ANDROID_SDK=/usr/local/opt/android-sdk
 export ANDROID_SDK_ROOT=/Users/jeremy/.android/avd
@@ -85,7 +79,7 @@ function killport() {
  kill `lsof -i:$1 -t`
 }
 
-ulimit -n 65536 65536
+ulimit -f unlimited
 
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /Users/jeremy/.nvm/versions/node/v6.10.3/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/jeremy/.nvm/versions/node/v6.10.3/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
