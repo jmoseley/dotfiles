@@ -5,8 +5,6 @@ export PATH=/usr/local/share/flutter/bin:$PATH
 
 eval $(thefuck --alias)
 
-alias ne='PATH=$(npm bin):$PATH'
-
 # Path to your oh-my-zsh installation.
 export ZSH=/home/jeremy/.oh-my-zsh
 
@@ -90,3 +88,6 @@ ulimit -f unlimited
 export PATH="$PATH:$HOME/.rvm/bin"
 
 export PATH="$HOME/.yarn/bin:$PATH"
+
+# Access executables installed for the current project
+export PATH="./node_modules/.bin:$PATH"
