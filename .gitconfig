@@ -8,6 +8,8 @@
         ca = commit --amend --no-edit
         pf = push -f
         p = push
+        d = diff
+        ds = diff --staged
         cob = checkout -b
         ec = config --global -e
         up = !git pull origin ${1-master} && git submodule update --init --recursive && git bclean ${1-master} && git remote prune origin
