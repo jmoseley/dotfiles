@@ -1,8 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export PATH=/usr/local/share/flutter/bin:$PATH
-
 # To make 'psql' work without -h commands
 export PGHOST=localhost
 
@@ -14,7 +12,7 @@ export VAULT_CAPATH=/Users/jeremy/src/ops/credentials/convoy-vault-ca.cert.pem
 export VAULT_ADDR=https://10.10.27.22:8200
 
 export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 alias ne='PATH=$(npm bin):$PATH'
 alias gup='git up'
@@ -104,11 +102,6 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="nano ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-
-alias vlt='VAULT_ADDR=$(vault status -address=https://10.10.27.22:8200 |grep Leader|sed "s/.*Leader: //") vault'
-
 shitcan() { $* 2> /dev/null }
 
 # call nvm use automatically whenever you enter a directory that contains an .nvmrc file
@@ -121,7 +114,6 @@ load-nvmrc() {
  fi
 }
 add-zsh-hook chpwd load-nvmrc
-# load-nvmrc
 
 function pdb() {
   if [ -z "$1" ]
@@ -132,17 +124,6 @@ function pdb() {
   fi
 }
 
-export ANDROID_SDK=/usr/local/opt/android-sdk
-export ANDROID_SDK_ROOT=/Users/jeremy/.android/avd
-export ANDROID_NDK=/usr/local/opt/android-ndk-r10e
-export ANDROID_HOME="${ANDROID_SDK}"
-export ANDROID_NDK_HOME="${ANDROID_NDK}"
-launchctl setenv ANDROID_HOME "${ANDROID_HOME}"
-launchctl setenv ANDROID_NDK_HOME "${ANDROID_NDK_HOME}"
-launchctl setenv ANDROID_SDK "${ANDROID_SDK}"
-launchctl setenv ANDROID_SDK_ROOT "${ANDROID_SDK_ROOT}"
-launchctl setenv ANDROID_NDK "${ANDROID_NDK}"
-
 function port() {
   lsof -n -i:$1 | grep LISTEN
 }
@@ -152,45 +133,16 @@ function killport() {
  kill `lsof -i:$1 -t`
 }
 
-ulimit -n 65536 65536
-
 export AWS_ACCESS_KEY_ID=$(aws configure get aws_access_key_id)
 export AWS_ACCESS_KEY=$(aws configure get aws_access_key_id)
 export AWS_SECRET_ACCESS_KEY=$(aws configure get aws_secret_access_key)
 export AWS_SECRET_KEY=$(aws configure get aws_secret_access_key)
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/jeremy/.nvm/versions/node/v6.10.3/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/jeremy/.nvm/versions/node/v6.10.3/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/jeremy/.nvm/versions/node/v6.10.3/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/jeremy/.nvm/versions/node/v6.10.3/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 export PATH="$HOME/.yarn/bin:$PATH"
 
-function awsCredsSwap() {
-  if [ -e ~/.aws/convoy.credentials ]; then
-    echo "Activating Convoy Creds"
-    mv ~/.aws/credentials ~/.aws/jerez_z.credentials
-    mv ~/.aws/convoy.credentials ~/.aws/credentials
-  else
-    echo "Activating person creds"
-    mv ~/.aws/credentials ~/.aws/convoy.credentials
-    mv ~/.aws/jerez_z.credentials ~/.aws/credentials
-  fi
-  source ~/.zshrc
-}
-
 eval "$(hub alias -s)"
 
-
-# added by travis gem
-[ -f /Users/jeremy/.travis/travis.sh ] && source /Users/jeremy/.travis/travis.sh
-
-export GOPATH="/Users/jeremy/projects/go"
-export PATH="./node_modules/.bin:$GOPATH/bin:$PATH"
-
 export CONVOY_OPS_DIR=~/src
-export PATH="/usr/local/opt/mysql@5.5/bin:$PATH"
