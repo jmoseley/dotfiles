@@ -4,7 +4,7 @@
 # To make 'psql' work without -h commands
 export PGHOST=localhost
 
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
 
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH=/Users/jeremy/src/ops/.tools:$PATH
@@ -16,6 +16,7 @@ export NVM_DIR="$HOME/.nvm"
 
 alias ne='PATH=$(npm bin):$PATH'
 alias gup='git up'
+alias reload_profile='source ~/.zshrc'
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/jeremy/.oh-my-zsh
@@ -142,7 +143,5 @@ export AWS_SECRET_KEY=$(aws configure get aws_secret_access_key)
 export PATH="$PATH:$HOME/.rvm/bin"
 
 export PATH="$HOME/.yarn/bin:$PATH"
-
-eval "$(hub alias -s)"
 
 export CONVOY_OPS_DIR=~/src
