@@ -6,6 +6,8 @@ export PGHOST=localhost
 
 # eval $(thefuck --alias)
 
+export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH=/Users/jeremy/src/ops/.tools:$PATH
 export VAULT_CAPATH=/Users/jeremy/src/ops/credentials/convoy-vault-ca.cert.pem
@@ -74,6 +76,9 @@ HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
 source $ZSH/oh-my-zsh.sh
 
+# Activate aws cli
+export PATH="/usr/local/opt/awscli@1/bin:$PATH"
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -134,10 +139,12 @@ function killport() {
  kill `lsof -i:$1 -t`
 }
 
-export AWS_ACCESS_KEY_ID=$(aws configure get aws_access_key_id)
-export AWS_ACCESS_KEY=$(aws configure get aws_access_key_id)
-export AWS_SECRET_ACCESS_KEY=$(aws configure get aws_secret_access_key)
-export AWS_SECRET_KEY=$(aws configure get aws_secret_access_key)
+$(aws-okta env prod-rw)
+
+#export AWS_ACCESS_KEY_ID=$(aws configure get aws_access_key_id)
+#export AWS_ACCESS_KEY=$(aws configure get aws_access_key_id)
+#export AWS_SECRET_ACCESS_KEY=$(aws configure get aws_secret_access_key)
+#export AWS_SECRET_KEY=$(aws configure get aws_secret_access_key)
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -145,3 +152,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$HOME/.yarn/bin:$PATH"
 
 export CONVOY_OPS_DIR=~/src
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+
