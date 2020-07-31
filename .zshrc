@@ -155,3 +155,4 @@ export CONVOY_OPS_DIR=~/src
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
 
+export PATH=$PATH:/usr/local/go/bin
