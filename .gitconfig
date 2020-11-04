@@ -1,6 +1,7 @@
 [user]
         name = Jeremy Moseley
-        email = jeremy@jeremymoseley.net
+        email = jeremy@moseley.dev
+	signingkey = F6C13EC3A989856C
 [alias]
         co = checkout
         cm = !git commit -m
@@ -26,3 +27,5 @@
 	enabled = true
 [credential]
 	helper = store
+[commit]
+	gpgsign = true
