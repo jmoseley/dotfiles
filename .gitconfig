@@ -1,6 +1,6 @@
 [user]
         name = Jeremy Moseley
-        email = jeremy@jeremymoseley.net
+        email = jeremy@convoy.com
 [alias]
         co = checkout
         cm = !git commit -m
