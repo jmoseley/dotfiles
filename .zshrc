@@ -1,4 +1,4 @@
-# If you come from bash you might have to change your $PATH.
+ # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # To make 'psql' work without -h commands
@@ -12,6 +12,8 @@ export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 export PATH=/Users/jeremy/src/ops/.tools:$PATH
 export VAULT_CAPATH=/Users/jeremy/src/ops/credentials/convoy-vault-ca.cert.pem
 export VAULT_ADDR=https://10.10.27.22:8200
+
+export PATH="/Users/jeremy/go/bin":$PATH
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -70,7 +72,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx node nvm npm history-substring-search z brew)
+plugins=(git osx node nvm npm history-substring-search z brew web-search sudo zsh-autosuggestions)
 
 HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
@@ -156,3 +158,18 @@ export CONVOY_OPS_DIR=~/src
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
 
 export PATH=$PATH:/usr/local/go/bin
+
+function fix-prettier-changed() {
+    for file in $(git diff --name-only master); do
+        yarn prettier --write $file
+    done
+}
+
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/Users/jeremy/.gem/ruby/2.6.0/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"
+
+reload_config() {
+  source ~/.zshrc
+}
