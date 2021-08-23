@@ -12,7 +12,7 @@
         ds = diff --staged
         cob = checkout -b
         ec = config --global -e
-        up = "!f() { git pull origin ${1-master} && git bclean ${1-master} && git sclean && git remote prune origin; }; f"
+        up = "!f() { git pull origin ${1-master} || git pull origin ${1-main}  && git bclean ${1-master} || git bclean ${1-main} && git sclean && git remote prune origin; }; f"
         save = !git add -A && git commit -m 'SAVEPOINT'
         wip = !git add -u && git commit -m 'WIP'
         undo = reset HEAD~1 --mixed
@@ -26,3 +26,8 @@
 	enabled = true
 [credential]
 	helper = osxkeychain
+[url "https://github.com/"]
+	insteadOf = ssh://git@github.com/
+	insteadOf = git@github.com:
+[pull]
+	rebase = false

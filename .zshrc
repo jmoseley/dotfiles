@@ -4,13 +4,13 @@
 # To make 'psql' work without -h commands
 export PGHOST=localhost
 
-# eval $(thefuck --alias)
+eval $(thefuck --alias)
 
 export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-export PATH=/Users/jeremy/src/ops/.tools:$PATH
-export VAULT_CAPATH=/Users/jeremy/src/ops/credentials/convoy-vault-ca.cert.pem
+export PATH=/Users/jeremy/code/convoyinc/ops/.tools:$PATH
+export VAULT_CAPATH=/Users/jeremy/code/convoyinc/credentials/convoy-vault-ca.cert.pem
 export VAULT_ADDR=https://10.10.27.22:8200
 
 export PATH="/Users/jeremy/go/bin":$PATH
@@ -25,10 +25,21 @@ alias reload_profile='source ~/.zshrc'
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/jeremy/.oh-my-zsh
 
+function get_pass() {
+  if ! $(op get account > /dev/null 2>&1); then
+    eval $(op signin moseleys)
+  fi
+  op get item $1 | jq -r '.details.fields[] | select(.designation=="password").value'
+}
+
+function docker_login() {
+  aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 699536110035.dkr.ecr.us-west-2.amazonaws.com
+}
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="cloud"
+ZSH_THEME="sobole"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -72,7 +83,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx node nvm npm history-substring-search z brew web-search sudo zsh-autosuggestions)
+plugins=(git golang osx node nvm npm history-substring-search z brew web-search sudo zsh-autosuggestions)
 
 HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
@@ -123,15 +134,6 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 
-function pdb() {
-  if [ -z "$1" ]
-  then
-    pgcli -U postgres -d shipotle_dev
-  else
-    pgcli -U postgres -d $1
-  fi
-}
-
 function port() {
   lsof -n -i:$1 | grep LISTEN
 }
@@ -173,3 +175,4 @@ export PATH="$HOME/.gem/ruby/2.7.0/bin:$PATH"
 reload_config() {
   source ~/.zshrc
 }
+source /Users/jeremy/.convoyrc
