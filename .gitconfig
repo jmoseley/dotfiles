@@ -1,12 +1,12 @@
 [user]
         name = Jeremy Moseley
         email = jeremy@moseley.dev
-	signingkey = F6C13EC3A989856C
+	signingkey = 63CC62FBB3EFC47D
 [alias]
         co = checkout
-        cm = !git commit -m
+        cm = !git commit -S -m
         st = status
-        ca = commit --amend --no-edit
+        ca = commit --amend -S --no-edit
         pf = push -f
         p = push
         d = diff
