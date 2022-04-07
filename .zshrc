@@ -19,7 +19,7 @@ ZSH_THEME="cloud"
 
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git osx node nvm npm history-substring-search z)
+plugins=(git macos node nvm npm history-substring-search z zsh-autosuggestions)
 
 HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
