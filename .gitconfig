@@ -29,3 +29,5 @@
 	helper = store
 [commit]
 	gpgsign = true
+[pull]
+	rebase = true
