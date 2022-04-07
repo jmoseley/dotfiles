@@ -91,3 +91,7 @@ export PATH="$HOME/.yarn/bin:$PATH"
 
 # Access executables installed for the current project
 export PATH="./node_modules/.bin:$PATH"
+
+function reload_config() {
+  source ~/.zshrc
+}
