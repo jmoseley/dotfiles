@@ -1,6 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+eval $(thefuck --alias)
+
 # Download Znap, if it's not there yet.
 [[ -f ~/code/znap/zsh-snap/znap.zsh ]] ||
     git clone --depth 1 -- \
