@@ -20,6 +20,8 @@ znap source zsh-users/zsh-syntax-highlighting
 
 export GPG_TTY=$(tty)
 export PATH=/usr/local/share/flutter/bin:$PATH
+export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools/
+export PATH=$PATH:$HOME/Library/Android/sdk/emulator/
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
