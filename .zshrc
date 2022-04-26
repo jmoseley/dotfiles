@@ -113,6 +113,8 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 export PATH="$HOME/.yarn/bin:$PATH"
 
+export PATH="$PATH:$HOME/code/tools/flutter/bin"
+
 # Access executables installed for the current project
 export PATH="./node_modules/.bin:$PATH"
 
