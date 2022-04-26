@@ -52,6 +52,8 @@ else
   export EDITOR='nano'
 fi
 
+alias master="git co master && git up"
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
