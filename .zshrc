@@ -121,3 +121,5 @@ export PATH="./node_modules/.bin:$PATH"
 function reload_config() {
   source ~/.zshrc
 }
+
+eval "$(atuin init zsh)"
