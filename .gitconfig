@@ -1,33 +1,34 @@
 [user]
         name = Jeremy Moseley
-        email = jeremy@convoy.com
+        email = jeremy@moseley.dev
+	signingkey = 63CC62FBB3EFC47D
 [alias]
         co = checkout
-        cm = !git commit -m
+        cm = !git commit -S -m
         st = status
-        ca = commit --amend --no-edit
+        ca = commit --amend -S --no-edit
         pf = push -f
         p = push
         d = diff
         ds = diff --staged
         cob = checkout -b
         ec = config --global -e
-        up = "!f() { git pull origin ${1-master} || git pull origin ${1-main}  && git bclean ${1-master} || git bclean ${1-main} && git sclean && git remote prune origin; }; f"
+        up = "!f() { git pull origin ${1-master} && git bclean ${1-master} && git sclean && git remote prune origin; }; f"
         save = !git add -A && git commit -m 'SAVEPOINT'
         wip = !git add -u && git commit -m 'WIP'
         undo = reset HEAD~1 --mixed
         wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
-        bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs --no-run-if-empty git branch -d; }; f"
+        bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
         sclean = "!git-delete-squashed"
 [push]
 	default = current
-
+[commit]
+        gpgsign = true
 [rerere]
 	enabled = true
 [credential]
-	helper = osxkeychain
-[url "https://github.com/"]
-	insteadOf = ssh://git@github.com/
-	insteadOf = git@github.com:
+	helper = store
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
 [pull]
 	rebase = false
