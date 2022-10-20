@@ -3,6 +3,7 @@
         email = jeremy@moseley.dev
 	signingkey = 63CC62FBB3EFC47D
 [alias]
+        mainbranch = "!git remote show origin | grep \"HEAD branch\" | cut -d: -f 2"
         co = checkout
         cm = !git commit -S -m
         st = status
@@ -13,13 +14,13 @@
         ds = diff --staged
         cob = checkout -b
         ec = config --global -e
-        up = "!f() { git pull origin ${1-master} && git bclean ${1-master} && git sclean && git remote prune origin; }; f"
+        up = "!f() { TARGET_BRANCH=$(git mainbranch); git pull origin ${TARGET_BRANCH} && git bclean ${TARGET_BRANCH} && git sclean ${TARGET_BRANCH}  && git remote prune origin; }; f"
         save = !git add -A && git commit -m 'SAVEPOINT'
         wip = !git add -u && git commit -m 'WIP'
         undo = reset HEAD~1 --mixed
         wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
         bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
-        sclean = "!git-delete-squashed"
+        sclean = "!f() { git-delete-squashed ${1-master}; }; f"
 [push]
 	default = current
 
