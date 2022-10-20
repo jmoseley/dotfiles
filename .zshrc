@@ -8,6 +8,9 @@ export PATH=/usr/local/share/flutter/bin:$PATH
 export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools/
 export PATH=$PATH:$HOME/Library/Android/sdk/emulator/
 
+#export TFENV_ARCH=amd64
+#export DOCKER_DEFAULT_PLATFORM=linux/amd64
+
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 export PUPPETEER_EXECUTABLE_PATH=`which chromium`
 
