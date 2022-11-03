@@ -135,7 +135,7 @@ dura serve > /dev/null 2>&1 &
 export NOMAD_ADDR=https://nomad.internal.classdojo.com
 
 mm () {
-        local API_DIR="/Users/andrew/code/dojo/api"
+        local API_DIR="/Users/jeremy/code/classdojo/api"
         local grepStr="$1"
         if [ $(pwd) != "$API_DIR" ]
         then
