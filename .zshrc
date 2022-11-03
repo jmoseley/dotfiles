@@ -37,7 +37,7 @@ else
   export EDITOR='nano'
 fi
 
-alias master="git co $(git mainbranch) && git up"
+alias master='git co $(git mainbranch) && git up'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
