@@ -21,6 +21,21 @@
         wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
         bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
         sclean = "!f() { git-delete-squashed ${1-master}; }; f"
+        squash = "!git rebase -v -i $(git mainbranch)"
+        pr = "!f() { \
+       open \"$(git ls-remote --get-url $(git config --get branch.$(git rev-parse --abbrev-ref HEAD).remote) \
+       | sed 's|git@github.com:\\(.*\\)$|https://github.com/\\1|' \
+       | sed 's|\\.git$||'; \
+       )/compare/$(\
+       git config --get branch.$(git rev-parse --abbrev-ref HEAD).merge | cut -d '/' -f 3- \
+       )?expand=1\"; \
+  }; f"
+        hub = "!f() { \
+       open \"$(git ls-remote --get-url \
+       | sed 's|git@github.com:\\(.*\\)$|https://github.com/\\1|' \
+       | sed 's|\\.git$||'; \
+       )\"; \
+  }; f"
 [push]
 	default = current
 [commit]
