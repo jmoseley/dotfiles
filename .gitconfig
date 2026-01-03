@@ -1,50 +1,49 @@
-[user]
-        name = Jeremy Moseley
-        email = jeremy.moseley@classdojo.com
-	signingkey = 63CC62FBB3EFC47D
+[core]
+        pager = delta
+        hooksPath = /Users/jeremy/.git-hooks
 [alias]
         mainbranch = "!git remote show origin | grep \"HEAD branch\" | cut -d: -f 2"
         co = checkout
-        cm = !git commit -S -m
+        cm = !git commit -m
         st = status
-        ca = commit --amend -S --no-edit
+        ca = commit --amend --no-edit
         pf = push -f
         p = push
         d = diff
         ds = diff --staged
         cob = checkout -b
         ec = config --global -e
-        up = "!f() { TARGET_BRANCH=$(git mainbranch); git pull origin ${TARGET_BRANCH} && git bclean ${TARGET_BRANCH} && git sclean ${TARGET_BRANCH}  && git remote prune origin; }; f"
-        save = !git add -A && git commit -m 'SAVEPOINT'
-        wip = !git add -u && git commit -m 'WIP'
+        up = "!f() { TARGET_BRANCH=$(git mainbranch); git pull origin ${TARGET_BRANCH} && git submodule update --init && git bclean ${TARGET_BRANCH} && git delete-squashed ${TARGET_BRANCH}  && git remote prune origin; }; f"
+        save = !git add -A && git commit -m 'SAVEPOINT' --no-verify
+        wip = !git add -u && git commit -m 'WIP' --no-verify
         undo = reset HEAD~1 --mixed
         wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
         bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
-        sclean = "!f() { git-delete-squashed ${1-master}; }; f"
         squash = "!git rebase -v -i $(git mainbranch)"
-        pr = "!f() { \
-       open \"$(git ls-remote --get-url $(git config --get branch.$(git rev-parse --abbrev-ref HEAD).remote) \
-       | sed 's|git@github.com:\\(.*\\)$|https://github.com/\\1|' \
-       | sed 's|\\.git$||'; \
-       )/compare/$(\
-       git config --get branch.$(git rev-parse --abbrev-ref HEAD).merge | cut -d '/' -f 3- \
-       )?expand=1\"; \
-  }; f"
-        hub = "!f() { \
-       open \"$(git ls-remote --get-url \
-       | sed 's|git@github.com:\\(.*\\)$|https://github.com/\\1|' \
-       | sed 's|\\.git$||'; \
-       )\"; \
-  }; f"
+	abs = "!git-absorb"
+        delete-squashed = "!f() { local targetBranch=${1:-main} && git checkout -q $targetBranch && git branch --merged | grep -v \"\\*\" | xargs -n 1 git branch -d && git for-each-ref refs/heads/ \"--format=%(refname:short)\" | while read branch; do mergeBase=$(git merge-base $targetBranch $branch) && [[ $(git cherry $targetBranch $(git commit-tree $(git rev-parse $branch^{tree}) -p $mergeBase -m _)) == \"-\"* ]] && git branch -D $branch; done; }; f"
 [push]
 	default = current
-[commit]
-        gpgsign = true
 [rerere]
 	enabled = true
-[credential]
-	helper = store
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
+
+[delta]
+navigate = true
+side-by-side = false
+line-numbers = true
+dark = true # Use 'light' for light themes
+[user]
+	email = jemoseley@microsoft.com
+	name = jmoseley
 [pull]
-	rebase = true
+	rebase = false
+[credential]
+	username = jmoseley
+	helper = "!f() { test \"$1\" = get && echo \"password=$GITHUB_TOKEN\"; }; f"
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
