@@ -45,7 +45,7 @@ alias master='git co $(git mainbranch) && git up'
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# brew on M1 puts files in a different place, this helps with certain native packages (such as canvas)
+# Homebrew on M1 puts files in a different place, which helps with certain native packages (such as canvas)
 export CPLUS_INCLUDE_PATH=/opt/homebrew/include
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
